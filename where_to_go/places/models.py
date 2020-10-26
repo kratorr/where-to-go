@@ -16,5 +16,8 @@ class Image(models.Model):
     place = models.ForeignKey('Place', on_delete=models.CASCADE, related_name='images')
     number = models.PositiveIntegerField(null=False)
 
+    class Meta:
+        unique_together = (('place', 'number'),)
+
     def __str__(self):
         return '{} {}'.format(self.number, self.place.title)
