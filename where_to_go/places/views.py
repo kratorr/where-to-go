@@ -1,6 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import  get_object_or_404
+from django.urls import reverse
 
 from .models import Place
 
@@ -19,8 +20,7 @@ def index(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.id,
-                    "detailsUrl": "https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/moscow_legends.json"
-
+                    "detailsUrl": reverse('place_retrive', args=[place.id])
                 }
             }
         )
@@ -34,8 +34,6 @@ def index(request):
 
 def place_retrive(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    print(place)
-    print(place.images)
     res = {
         "title": place.title,
         "imgs": [request.build_absolute_uri(image.image.url) for image in place.images.all()],
