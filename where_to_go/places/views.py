@@ -15,7 +15,7 @@ def index(request):
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [place.coordinates['longitude'], place.coordinates['latitude']]
+                    "coordinates": [place.longitude, place.latitude]
                 },
                 "properties": {
                     "title": place.title,
@@ -39,8 +39,8 @@ def place_retrive(request, place_id):
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": {
-            "lng": place.coordinates['longitude'],
-            "lat": place.coordinates['latitude']
+            "lng": place.longitude,
+            "lat": place.latitude
         }
     }
     return JsonResponse(data, json_dumps_params={'ensure_ascii': False, 'indent': 4})
