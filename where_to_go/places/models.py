@@ -16,10 +16,10 @@ class Place(models.Model):
 class Image(models.Model):
     image = models.ImageField(verbose_name='Картинка')
     place = models.ForeignKey('Place', on_delete=models.CASCADE, related_name='images')
-    number = models.PositiveIntegerField(null=False, verbose_name='Позиция')
+    number = models.PositiveIntegerField(default=0, null=False, verbose_name='Позиция')
 
     class Meta:
-        unique_together = (('place', 'number'),)
+        ordering = ['number', ]
 
     def __str__(self):
         return '{} {}'.format(self.number, self.place.title)
