@@ -14,7 +14,6 @@ class ImageInline(admin.TabularInline):
         height = obj.image.height
         max_width = 200
         max_height = 200
-        print(width, height)
         if width > max_width:
             ratio = max_width / width
             height = height * ratio
