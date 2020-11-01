@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'YOU_MUST_CHANGE_IT')
 DEBUG = os.getenv("DEBUG", False)
 
 ALLOWED_HOSTS = ['*']
