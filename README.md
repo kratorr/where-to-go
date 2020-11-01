@@ -7,6 +7,7 @@ Cайт о самых интересных местах в Москве.
 
 - Скачайте код
 - Установите зависимости командой `pip install -r requirements.txt`
+- Перейдите в директорию с приложением `cd where-to-go` 
 - Создайте БД командой `python3 manage.py migrate`
 - Запустите сервер командой `python3 manage.py runserver`
 
