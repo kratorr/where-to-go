@@ -3,7 +3,7 @@ import requests
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 
-from places.models import Place, Image as PlaceImage
+from places.models import Place, Image
 
 
 class Command(BaseCommand):
@@ -25,7 +25,7 @@ class Command(BaseCommand):
                 defaults={},
             )
             for num, url in enumerate(data['imgs']):
-                place_image = PlaceImage.objects.create(place_id=obj.id, number=num)
+                place_image = Image.objects.create(place_id=obj.id, number=num)
                 r = requests.get(url)
                 file_name = url.split('/')[-1]
                 if r.status_code == requests.codes.ok:
