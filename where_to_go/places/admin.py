@@ -27,10 +27,11 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
         else:
             width = max_width
             height = max_height
-        return format_html('<img src="{url}" width={width} height={height} />'.format(
-            url=obj.image.url,
-            width=width,
-            height=height
+        return format_html(
+            '<img src="{url}" width={width} height={height} />'.format(
+                url=obj.image.url,
+                width=width,
+                height=height
             )
         )
 
