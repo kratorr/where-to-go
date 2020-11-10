@@ -23,7 +23,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY', 'YOU_MUST_CHANGE_IT')
 DEBUG = os.getenv("DEBUG", False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Quick-start development settings - unsuitable for production
