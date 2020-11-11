@@ -15,13 +15,14 @@ from environs import Env
 from dotenv import load_dotenv
 
 load_dotenv()
+
 env = Env()
 env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv()
+DEBUG = env.bool('DEBUG', default=False)
 
 SECRET_KEY = env.str('SECRET_KEY', default='YOU_MUST_CHANGE_IT')
 
