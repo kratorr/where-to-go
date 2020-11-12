@@ -139,6 +139,4 @@ cython_debug/
 
 media/
 
-static/
-
 collected_static/
