@@ -15,20 +15,20 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         response = requests.get(options['url'])
         response.raise_for_status()
-        data = response.json()
-        obj, _ = Place.objects.get_or_create(
-            title=data['title'],
-            description_short=data['description_short'],
-            description_long=data['description_long'],
-            longitude=data['coordinates']['lng'],
-            latitude=data['coordinates']['lat'],
+        place_data = response.json()
+        place, _ = Place.objects.get_or_create(
+            title=place_data['title'],
+            description_short=place_data['description_short'],
+            description_long=place_data['description_long'],
+            longitude=place_data['coordinates']['lng'],
+            latitude=place_data['coordinates']['lat'],
             defaults={},
         )
-        for num, url in enumerate(data['imgs']):
-            place_image = Image.objects.create(place_id=obj.id, number=num)
+        for num, url in enumerate(place_data['imgs']):
+            place_image = Image.objects.create(place_id=place.id, number=num)
             r = requests.get(url)
             file_name = url.split('/')[-1]
             if r.status_code == requests.codes.ok:
                 place_image.image.save(file_name, ContentFile(r.content))
 
-        self.stdout.write(self.style.SUCCESS('Successfully upload place "{}"'.format(obj.title)))
+        self.stdout.write(self.style.SUCCESS('Successfully upload place "{}"'.format(place.title)))
