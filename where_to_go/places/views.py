@@ -6,11 +6,11 @@ from django.urls import reverse
 from .models import Place
 
 
-def index(request):
+def get_places(request):
     places = Place.objects.all()
-    data = {"type": "FeatureCollection", "features": []}
+    place_data = {"type": "FeatureCollection", "features": []}
     for place in places:
-        data['features'].append(
+        place_data['features'].append(
             {
                 "type": "Feature",
                 "geometry": {
@@ -24,10 +24,10 @@ def index(request):
                 }
             }
         )
-    return render(request, 'index.html', context={'data': data})
+    return render(request, 'index.html', context={'data': place_data})
 
 
-def place_retrive(request, place_id):
+def get_place(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     data = {
         "title": place.title,
