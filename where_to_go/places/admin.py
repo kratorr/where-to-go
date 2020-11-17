@@ -18,7 +18,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
                 url=instance.image.url
                 )
         else:
-            return format_html('<p>Картинка ещё не загружена</p>')
+            return format_html('<p>Здесь будет превью, когда вы веберете файл.</p>')
 
 class PlaceAdmin(admin.ModelAdmin):
     inlines = [
