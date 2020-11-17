@@ -1,5 +1,8 @@
 import requests
 
+from urllib.parse import  urlparse
+from pathlib import Path
+
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 
@@ -16,18 +19,20 @@ class Command(BaseCommand):
         response = requests.get(options['url'])
         response.raise_for_status()
         place_data = response.json()
-        place, _ = Place.objects.get_or_create(
+        place, is_created = Place.objects.update_or_create(
             title=place_data['title'],
-            description_short=place_data['description_short'],
-            description_long=place_data['description_long'],
-            longitude=place_data['coordinates']['lng'],
-            latitude=place_data['coordinates']['lat'],
-            defaults={},
+            defaults={
+                'short_description': place_data['description_short'],
+                'long_description': place_data['description_long'],
+                'longitude': place_data['coordinates']['lng'],
+                'latitude': place_data['coordinates']['lat']
+            }
         )
+
         for num, url in enumerate(place_data['imgs']):
             place_image = Image.objects.create(place_id=place.id, number=num)
             request = requests.get(url)
-            file_name = url.split('/')[-1]
+            file_name = Path(urlparse(url).path).name
             request.raise_for_status()
             place_image.image.save(file_name, ContentFile(request.content))
 
