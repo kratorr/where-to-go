@@ -20,7 +20,7 @@ def get_places(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.id,
-                    "detailsUrl": reverse('place_retrive', args=[place.id])
+                    "detailsUrl": reverse('get_place', args=[place.id])
                 }
             }
         )
