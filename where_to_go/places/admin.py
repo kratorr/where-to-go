@@ -11,13 +11,14 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     fields = ['image', 'get_preview', 'number']
     model = Image
 
-    def get_preview(self, obj):
-        return format_html(
-            '<img src="{url}" style="max-height: 200px; max-width: 200px;/>'.format(
-                url=obj.image.url
-            )
-        )
-
+    def get_preview(self, instance):
+        if instance.image:
+            return format_html(
+                '<img src="{url}" style="max-height: 200px; max-width: 200px;/>',
+                url=instance.image.url
+                )
+        else:
+            return format_html('<p>Картинка ещё не загружена</p>')
 
 class PlaceAdmin(admin.ModelAdmin):
     inlines = [
