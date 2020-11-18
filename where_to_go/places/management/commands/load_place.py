@@ -29,6 +29,9 @@ class Command(BaseCommand):
             }
         )
 
+        if not is_created:
+            place.images.all().delete()
+
         for num, url in enumerate(place_data['imgs']):
             place_image = Image.objects.create(place_id=place.id, number=num)
             request = requests.get(url)
