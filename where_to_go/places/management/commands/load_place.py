@@ -34,9 +34,9 @@ class Command(BaseCommand):
 
         for num, url in enumerate(place_data['imgs']):
             place_image = Image.objects.create(place_id=place.id, number=num)
-            request = requests.get(url)
+            response = requests.get(url)
             file_name = Path(urlparse(url).path).name
-            request.raise_for_status()
-            place_image.image.save(file_name, ContentFile(request.content))
+            response.raise_for_status()
+            place_image.image.save(file_name, ContentFile(response.content))
 
         self.stdout.write(self.style.SUCCESS('Successfully upload place "{}"'.format(place.title)))
